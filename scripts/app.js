@@ -25,6 +25,9 @@
   var SC_HEAD = 166;   // Kopf: Cover, Titel, Waveform
   var SC_ROW = 31;     // eine Zeile der Trackliste
   var SC_FOOT = 60;    // Fußzeile mit Playlist-Name
+  var SC_PAD = 24;     // Puffer: mobil fehlten sonst ein paar Pixel → Liste scrollte in sich
+
+  function heightFor(n) { return SC_HEAD + n * SC_ROW + SC_FOOT + SC_PAD; }
 
   function fitHeight(frame) {
     if (!window.SC || !SC.Widget) return;
@@ -32,7 +35,7 @@
     widget.bind(SC.Widget.Events.READY, function () {
       widget.getSounds(function (sounds) {
         if (sounds && sounds.length) {
-          frame.style.height = (SC_HEAD + sounds.length * SC_ROW + SC_FOOT) + 'px';
+          frame.style.height = heightFor(sounds.length) + 'px';
         }
       });
     });
@@ -75,6 +78,7 @@
     frame.setAttribute('scrolling', 'no');
     frame.setAttribute('frameborder', 'no');
     frame.src = embedUrl(p);
+    if (p.tracks) frame.style.height = heightFor(p.tracks) + 'px';   // Ersatzwert sofort
     sec.appendChild(frame);
 
     listEl.appendChild(sec);

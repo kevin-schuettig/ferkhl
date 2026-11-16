@@ -88,9 +88,10 @@ h1, h2 { font-size: inherit; font-weight: inherit; }
 }
 
 /* ---- Header ------------------------------------------------------------ */
-/* Ebene 1: fixe, leicht transparente Fläche mit Blur (außerhalb des Headers,
-   sonst würde der Blur das Negativ isolieren). Endet über der 6-px-Linie,
-   damit die Linie den Inhalt darunter im Negativ zeigt. */
+/* Header in zwei klar getrennten Ebenen:
+   - schwarzer Bereich: nur weichgezeichnet (Blur), Schrift normal weiß
+   - weiße 6-px-Linie: nur Negativ (difference), kein Blur
+   Ebene 1: fixe, leicht transparente Fläche mit Blur, endet über der Linie. */
 body::before {
   content: "";
   position: fixed;
@@ -105,7 +106,21 @@ body::before {
   backdrop-filter: blur(10px);
 }
 
-/* Ebene 2: Header im Negativ */
+/* Ebene 2: weiße Linie als eigenes Element, zeigt den Inhalt darunter im Negativ */
+body::after {
+  content: "";
+  position: fixed;
+  top: calc(var(--header-h) - 6px);
+  left: 0;
+  right: 0;
+  height: 6px;
+  z-index: 102;
+  pointer-events: none;
+  background: #fff;
+  mix-blend-mode: difference;
+}
+
+/* Ebene 3: Header-Inhalt (Logo, Titel, Jahre) ohne Blend-Effekt */
 .site-header {
   position: sticky;
   top: 0;
@@ -116,9 +131,8 @@ body::before {
   gap: 16px;
   height: var(--header-h);
   padding-inline: calc(12px + max(0px, (100% - 24px - var(--content)) / 2));
-  border-bottom: 6px solid #fff;
-  color: #fff;
-  mix-blend-mode: difference;
+  padding-bottom: 6px;   /* Platz der Linie, Inhalt sitzt mittig darüber */
+  color: var(--white);
 }
 
 .brand {
@@ -139,7 +153,7 @@ body::before {
   width: 64px;
   height: 64px;
   border: 1px solid var(--grey-darkest);
-  border-radius: 2px;
+  border-radius: 8px;
 }
 
 .years {
