@@ -22,8 +22,10 @@
   --line-bright: #e6e5e1;
   --blue: #9cadfe;
   --green: #5fdf8a;
+  --sc-orange: #ff5500;   /* SoundCloud-Orange */
 
   --header-h: 80px;
+  --rail: 60px;          /* Scroll-Streifen rechts */
   --content: 1280px;
 
   color-scheme: dark;
@@ -188,6 +190,47 @@ body::after {
   .years a { font-size: 12px; }
 }
 
+/* ---- Scroll-Streifen ---------------------------------------------------- */
+/* Fest am rechten Rand unter dem Header. Scrollt selbst nicht, darum wischt
+   der Daumen hier immer die Seite. Der Text bleibt stehen. */
+.rail {
+  position: fixed;
+  top: var(--header-h);
+  right: 0;
+  bottom: 0;
+  width: var(--rail);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--black);
+  border-left: 1px solid var(--white);
+  user-select: none;
+  -webkit-user-select: none;
+}
+/* Schrift wie die Jahreszahlen, 90° im Uhrzeigersinn gedreht */
+.rail-text {
+  writing-mode: vertical-rl;
+  white-space: nowrap;
+  font-size: 42px;
+  line-height: 46px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+@media (max-width: 640px) {
+  .rail-text { font-size: 33px; line-height: 38px; letter-spacing: -0.02em; }
+}
+
+/* Inhalt und Footer rücken um die Streifenbreite nach links */
+main, .site-footer { padding-right: var(--rail); }
+/* Trennlinien und Player stoßen rechts direkt an die Streifen-Linie
+   (links bleibt der normale Rand) */
+main {
+  /* links bündig mit dem Logo im Header (gleiche Rechnung wie dort) */
+  padding-left: calc(12px + max(0px, (100% - 24px - var(--content)) / 2));
+}
+main .wrap { max-width: none; margin: 0; padding-inline: 0; }
+
 /* ---- Intro ------------------------------------------------------------- */
 .intro {
   padding-top: 48px;
@@ -224,7 +267,8 @@ body::after {
   .year-num { font-size: 33px; line-height: 38px; letter-spacing: -0.02em; }
 }
 
-/* Externer Link als Tag: Plex Mono, normale Schreibweise, Radius 2 px */
+/* Externer Link als Tag: Plex Mono, normale Schreibweise, Radius 2 px,
+   SoundCloud-Orange, rechts Abstand zur Streifen-Linie */
 .ext {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -232,9 +276,10 @@ body::after {
   border: 1px solid currentColor;
   border-radius: 2px;
   padding: 2px 6px;
-  color: var(--blue);
+  margin-right: 12px;
+  color: var(--sc-orange);
 }
-.ext:hover { background: var(--blue); color: var(--black); }
+.ext:hover { background: var(--sc-orange); color: var(--black); }
 
 .player {
   display: block;

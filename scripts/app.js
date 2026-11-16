@@ -15,7 +15,7 @@
     var api = 'https%3A//api.soundcloud.com/playlists/soundcloud%3Aplaylists%3A' + p.id;
     if (p.secret) api += '%3Fsecret_token%3D' + p.secret;
     return 'https://w.soundcloud.com/player/?url=' + api +
-      '&color=%2393b0ff&auto_play=false&hide_related=true&show_comments=false' +
+      '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false' +
       '&show_user=true&show_reposts=false&show_teaser=false&visual=false';
   }
 
