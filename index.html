@@ -5,22 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#0c0c0b">
-  <title>Ferkhl Festival · Mixes</title>
+  <title>Ferkhl Mix Archive</title>
+  <meta name="description" content="Ferkhl Mix Archive">
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="./assets/icon-512.png">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
+  <!-- PWA: vom Home-Bildschirm ohne Browser-Leisten starten -->
+  <link rel="manifest" href="./manifest.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Ferkhl Mixes">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="./styles/main.css">
 </head>
 <body>
   <!-- Header wie auf der Website: sticky, 6-px-Linie, Negativ über dem Inhalt -->
-  <header id="top" class="site-header">
-    <a href="#top" class="brand">Ferkhl<span class="brand-long"> Festival</span></a>
+  <!-- Kein id="top" hier: #top springt so an den Seitenanfang (sticky Header wäre immer „schon da“) -->
+  <header class="site-header">
+    <h1 class="brand"><a href="#top"><img class="brand-logo" src="./assets/apple-touch-icon.png" alt="" width="64" height="64">Ferkhl Mix Archive</a></h1>
     <nav id="years" class="years" aria-label="Jahre" hidden></nav>
   </header>
 
   <main>
     <section class="intro wrap">
       <p id="kicker" class="label">Alle Mixes</p>
-      <h1 class="h1">Ferkhl Festival</h1>
     </section>
 
     <div id="list" class="list wrap"></div>

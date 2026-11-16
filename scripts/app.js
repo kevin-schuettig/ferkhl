@@ -83,6 +83,15 @@
 
   yearsEl.hidden = items.length < 2;
 
+  /* Jahresleiste seitlich wischbar: Ausblend-Rand nur, solange rechts noch Jahre folgen */
+  function updateMore() {
+    yearsEl.classList.toggle('has-more',
+      yearsEl.scrollLeft + yearsEl.clientWidth < yearsEl.scrollWidth - 2);
+  }
+  yearsEl.addEventListener('scroll', updateMore, { passive: true });
+  window.addEventListener('resize', updateMore);
+  updateMore();
+
   /* Kicker: Zeitraum automatisch aus den Daten */
   if (items.length > 1) {
     document.getElementById('kicker').textContent =
